@@ -21,11 +21,11 @@ class GvcfToBedTest extends BiopetTest {
   }
 
   val vcf3 = new File(resourcePath("/VCFv3.vcf"))
-  val veppedPath = resourcePath("/VEP_oneline.vcf")
+  val veppedPath: String = resourcePath("/VEP_oneline.vcf")
   val vepped = new File(veppedPath)
   val unvepped = new File(resourcePath("/unvepped.vcf"))
 
-  @Test def testMinQuality() = {
+  @Test def testMinQuality(): Unit = {
     val reader = new VCFFileReader(vepped, false)
     val record = reader.iterator().next()
 
@@ -39,7 +39,7 @@ class GvcfToBedTest extends BiopetTest {
   }
 
   @Test
-  def testGvcfToBedOutput() = {
+  def testGvcfToBedOutput(): Unit = {
     val tmp = File.createTempFile("gvcf2bedtest", ".bed")
     tmp.deleteOnExit()
     val args: Array[String] = Array("-I",
@@ -70,7 +70,7 @@ class GvcfToBedTest extends BiopetTest {
   }
 
   @Test
-  def testGvcfToBedInvertedOutput() = {
+  def testGvcfToBedInvertedOutput(): Unit = {
     val tmp = File.createTempFile("gvcf2bedtest", ".bed")
     val tmpInv = File.createTempFile("gvcf2bedtest", ".bed")
     tmp.deleteOnExit()
