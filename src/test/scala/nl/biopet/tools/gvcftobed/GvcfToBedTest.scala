@@ -4,7 +4,7 @@ import java.io.File
 
 import htsjdk.variant.vcf.VCFFileReader
 import nl.biopet.test.BiopetTest
-import nl.biopet.utils.ngs.VcfUtils
+import nl.biopet.utils.ngs.vcf
 import org.testng.annotations.Test
 
 import scala.io.Source
@@ -29,13 +29,13 @@ class GvcfToBedTest extends BiopetTest {
     val reader = new VCFFileReader(vepped, false)
     val record = reader.iterator().next()
 
-    VcfUtils.hasMinGenomeQuality(record, "Sample_101", 99) shouldBe true
+    vcf.hasMinGenomeQuality(record, "Sample_101", 99) shouldBe true
 
     val reader2 = new VCFFileReader(unvepped, false)
     val record2 = reader2.iterator.next()
 
-    VcfUtils.hasMinGenomeQuality(record2, "Sample_102", 3) shouldBe true
-    VcfUtils.hasMinGenomeQuality(record2, "Sample_102", 99) shouldBe false
+    vcf.hasMinGenomeQuality(record2, "Sample_102", 3) shouldBe true
+    vcf.hasMinGenomeQuality(record2, "Sample_102", 99) shouldBe false
   }
 
   @Test
