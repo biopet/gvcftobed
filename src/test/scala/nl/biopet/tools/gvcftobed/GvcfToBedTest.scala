@@ -10,6 +10,7 @@ import org.testng.annotations.Test
 import scala.io.Source
 
 class GvcfToBedTest extends ToolTest[Args] {
+  def toolCommand: GvcfToBed.type = GvcfToBed
 
   import GvcfToBed._
 
