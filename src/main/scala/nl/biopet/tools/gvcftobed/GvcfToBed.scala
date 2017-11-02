@@ -10,11 +10,11 @@ import nl.biopet.utils.tool.ToolCommand
 
 import scala.collection.JavaConversions._
 
-object GvcfToBed extends ToolCommand {
+object GvcfToBed extends ToolCommand[Args] {
+  def emptyArgs: Args = Args()
+  def argsParser = new ArgsParser(toolName)
   def main(args: Array[String]): Unit = {
-    val parser = new ArgsParser(toolName)
-    val cmdArgs =
-      parser.parse(args, Args()).getOrElse(throw new IllegalArgumentException)
+    val cmdArgs = cmdArrayToArgs(args)
 
     logger.info("Start")
 

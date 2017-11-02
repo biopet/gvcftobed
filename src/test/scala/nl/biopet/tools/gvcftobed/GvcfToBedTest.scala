@@ -3,13 +3,14 @@ package nl.biopet.tools.gvcftobed
 import java.io.File
 
 import htsjdk.variant.vcf.VCFFileReader
-import nl.biopet.test.BiopetTest
+import nl.biopet.utils.test.tools.ToolTest
 import nl.biopet.utils.ngs.vcf
 import org.testng.annotations.Test
 
 import scala.io.Source
 
-class GvcfToBedTest extends BiopetTest {
+class GvcfToBedTest extends ToolTest[Args] {
+  def toolCommand: GvcfToBed.type = GvcfToBed
 
   import GvcfToBed._
 
