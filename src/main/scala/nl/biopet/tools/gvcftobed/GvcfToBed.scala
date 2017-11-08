@@ -28,26 +28,31 @@ object GvcfToBed extends ToolCommand[Args] {
         new PrintWriter(file)
     }
 
-    val sample = cmdArgs.sample.getOrElse(reader.getFileHeader.getSampleNamesInOrder.head)
+    val sample =
+      cmdArgs.sample.getOrElse(reader.getFileHeader.getSampleNamesInOrder.head)
 
     val it = reader.iterator()
     val firstRecord = it.next()
     var contig = firstRecord.getContig
     var start = firstRecord.getStart
     var end = firstRecord.getEnd
-    var pass = vcf.hasMinGenomeQuality(firstRecord, sample, cmdArgs.minGenomeQuality)
+    var pass =
+      vcf.hasMinGenomeQuality(firstRecord, sample, cmdArgs.minGenomeQuality)
 
     def writeResetCachedRecord(newRecord: VariantContext): Unit = {
       writeCachedRecord()
       contig = newRecord.getContig
       start = newRecord.getStart
       end = newRecord.getEnd
-      pass = vcf.hasMinGenomeQuality(newRecord, sample, cmdArgs.minGenomeQuality)
+      pass =
+        vcf.hasMinGenomeQuality(newRecord, sample, cmdArgs.minGenomeQuality)
     }
 
     def writeCachedRecord(): Unit = {
       if (pass) writer.println(new BedRecord(contig, start - 1, end))
-      else invertedWriter.foreach(_.println(new BedRecord(contig, start - 1, end)))
+      else
+        invertedWriter.foreach(
+          _.println(new BedRecord(contig, start - 1, end)))
     }
 
     var counter = 1
