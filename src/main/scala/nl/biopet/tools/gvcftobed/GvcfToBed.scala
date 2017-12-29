@@ -92,5 +92,8 @@ object GvcfToBed extends ToolCommand[Args] {
 
   def manualText: String = ???
 
-  def exampleText: String = ???
+  def exampleText: String =
+    s"""
+       |${example("-I", "input.gvcf", "-o", "output.bed")}
+     """.stripMargin
 }
