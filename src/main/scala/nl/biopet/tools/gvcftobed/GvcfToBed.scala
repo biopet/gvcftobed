@@ -84,4 +84,13 @@ object GvcfToBed extends ToolCommand[Args] {
 
     logger.info("Done")
   }
+
+  def descriptionText: String =
+    """
+      |This tool makes a bed file with the positions from the input GVCF file.
+    """.stripMargin
+
+  def manualText: String = ???
+
+  def exampleText: String = ???
 }

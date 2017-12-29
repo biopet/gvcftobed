@@ -18,11 +18,11 @@ class ArgsParser(toolCommand: ToolCommand[Args])
     (x, c) =>
       c.copy(invertedOutputBed = Some(x))
   } text "Output bed file"
-  opt[String]('S', "sample") unbounded () maxOccurs 1 valueName "<sample>" action {
+  opt[String]('S', "sample") maxOccurs 1 valueName "<sample>" action {
     (x, c) =>
       c.copy(sample = Some(x))
   } text "Sample to consider. Will take first sample on alphabetical order by default"
-  opt[Int]("minGenomeQuality") unbounded () maxOccurs 1 valueName "<int>" action {
+  opt[Int]("minGenomeQuality") maxOccurs 1 valueName "<int>" action {
     (x, c) =>
       c.copy(minGenomeQuality = x)
   } text "Minimum genome quality to consider"
