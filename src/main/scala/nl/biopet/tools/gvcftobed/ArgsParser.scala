@@ -22,8 +22,7 @@ class ArgsParser(toolCommand: ToolCommand[Args])
     (x, c) =>
       c.copy(sample = Some(x))
   } text "Sample to consider. Will take first sample on alphabetical order by default"
-  opt[Int]("minGenomeQuality") maxOccurs 1 valueName "<int>" action {
-    (x, c) =>
-      c.copy(minGenomeQuality = x)
+  opt[Int]("minGenomeQuality") maxOccurs 1 valueName "<int>" action { (x, c) =>
+    c.copy(minGenomeQuality = x)
   } text "Minimum genome quality to consider"
 }

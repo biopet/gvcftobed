@@ -88,12 +88,20 @@ object GvcfToBed extends ToolCommand[Args] {
   def descriptionText: String =
     """
       |This tool makes a bed file with the positions from the input GVCF file.
+      |It selects the regions of a certain genome quality treshold.
     """.stripMargin
 
-  def manualText: String = ???
+  def manualText: String =
+    s"""
+       |$toolName needs an inputVcf and outputs to a bed file.
+       |Genome quality threshold can be set by the `--minGenomeQuality` flag.
+       |It can optionally output a inverted BED file.
+     """.stripMargin
 
   def exampleText: String =
     s"""
-       |${example("-I", "input.gvcf", "-o", "output.bed")}
+       |To make a bed file from `input.gvcf` by taking sample `F.catus-43`
+       |and output to `output.bed`:
+       |${example("-I", "input.gvcf", "-O", "output.bed", "-S", "F.catus-43")}
      """.stripMargin
 }
