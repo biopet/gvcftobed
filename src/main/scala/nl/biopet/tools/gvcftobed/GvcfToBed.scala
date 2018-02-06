@@ -26,6 +26,7 @@ import java.io.PrintWriter
 import htsjdk.variant.variantcontext.VariantContext
 import htsjdk.variant.vcf.VCFFileReader
 import nl.biopet.utils.ngs.vcf
+import nl.biopet.utils.ngs.vcf.BiopetGenotype
 import nl.biopet.utils.ngs.intervals.BedRecord
 import nl.biopet.utils.tool.ToolCommand
 
@@ -58,7 +59,7 @@ object GvcfToBed extends ToolCommand[Args] {
     var start = firstRecord.getStart
     var end = firstRecord.getEnd
     var pass =
-      vcf.hasMinGenomeQuality(firstRecord, sample, cmdArgs.minGenomeQuality)
+      firstRecord.getGenotype(sample).hasMinGenomeQuality(cmdArgs.minGenomeQuality)
 
     def writeResetCachedRecord(newRecord: VariantContext): Unit = {
       writeCachedRecord()
@@ -66,7 +67,7 @@ object GvcfToBed extends ToolCommand[Args] {
       start = newRecord.getStart
       end = newRecord.getEnd
       pass =
-        vcf.hasMinGenomeQuality(newRecord, sample, cmdArgs.minGenomeQuality)
+        newRecord.getGenotype(sample).hasMinGenomeQuality(cmdArgs.minGenomeQuality)
     }
 
     def writeCachedRecord(): Unit = {
@@ -80,7 +81,7 @@ object GvcfToBed extends ToolCommand[Args] {
     logger.info("Start")
     for (r <- it) {
       if (contig == r.getContig) {
-        val p = vcf.hasMinGenomeQuality(r, sample, cmdArgs.minGenomeQuality)
+        val p = r.getGenotype(sample).hasMinGenomeQuality(cmdArgs.minGenomeQuality)
         if (p != pass || r.getStart > (end + 1)) writeResetCachedRecord(r)
         else end = r.getEnd
       } else writeResetCachedRecord(r)
