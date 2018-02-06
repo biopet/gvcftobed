@@ -59,15 +59,18 @@ object GvcfToBed extends ToolCommand[Args] {
     var start = firstRecord.getStart
     var end = firstRecord.getEnd
     var pass =
-      firstRecord.getGenotype(sample).hasMinGenomeQuality(cmdArgs.minGenomeQuality)
+      firstRecord
+        .getGenotype(sample)
+        .hasMinGenomeQuality(cmdArgs.minGenomeQuality)
 
     def writeResetCachedRecord(newRecord: VariantContext): Unit = {
       writeCachedRecord()
       contig = newRecord.getContig
       start = newRecord.getStart
       end = newRecord.getEnd
-      pass =
-        newRecord.getGenotype(sample).hasMinGenomeQuality(cmdArgs.minGenomeQuality)
+      pass = newRecord
+        .getGenotype(sample)
+        .hasMinGenomeQuality(cmdArgs.minGenomeQuality)
     }
 
     def writeCachedRecord(): Unit = {
@@ -81,7 +84,8 @@ object GvcfToBed extends ToolCommand[Args] {
     logger.info("Start")
     for (r <- it) {
       if (contig == r.getContig) {
-        val p = r.getGenotype(sample).hasMinGenomeQuality(cmdArgs.minGenomeQuality)
+        val p =
+          r.getGenotype(sample).hasMinGenomeQuality(cmdArgs.minGenomeQuality)
         if (p != pass || r.getStart > (end + 1)) writeResetCachedRecord(r)
         else end = r.getEnd
       } else writeResetCachedRecord(r)
