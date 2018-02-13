@@ -76,8 +76,7 @@ object GvcfToBed extends ToolCommand[Args] {
     def writeCachedRecord(): Unit = {
       if (pass) writer.println(new BedRecord(contig, start - 1, end))
       else
-        invertedWriter.foreach(
-          _.println(new BedRecord(contig, start - 1, end)))
+        invertedWriter.foreach(_.println(new BedRecord(contig, start - 1, end)))
     }
 
     var counter = 1
