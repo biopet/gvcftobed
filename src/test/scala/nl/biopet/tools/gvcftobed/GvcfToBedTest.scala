@@ -1,3 +1,24 @@
+/*
+ * Copyright (c) 2014 Biopet
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package nl.biopet.tools.gvcftobed
 
 import java.io.File
@@ -44,13 +65,13 @@ class GvcfToBedTest extends ToolTest[Args] {
     val tmp = File.createTempFile("gvcf2bedtest", ".bed")
     tmp.deleteOnExit()
     val args: Array[String] = Array("-I",
-      unvepped.getAbsolutePath,
-      "-O",
-      tmp.getAbsolutePath,
-      "-S",
-      "Sample_101",
-      "--minGenomeQuality",
-      "99")
+                                    unvepped.getAbsolutePath,
+                                    "-O",
+                                    tmp.getAbsolutePath,
+                                    "-S",
+                                    "Sample_101",
+                                    "--minGenomeQuality",
+                                    "99")
     main(args)
 
     Source.fromFile(tmp).getLines().size shouldBe 0
@@ -58,13 +79,13 @@ class GvcfToBedTest extends ToolTest[Args] {
     val tmp2 = File.createTempFile("gvcf2bedtest", ".bed")
     tmp2.deleteOnExit()
     val args2: Array[String] = Array("-I",
-      unvepped.getAbsolutePath,
-      "-O",
-      tmp2.getAbsolutePath,
-      "-S",
-      "Sample_102",
-      "--minGenomeQuality",
-      "2")
+                                     unvepped.getAbsolutePath,
+                                     "-O",
+                                     tmp2.getAbsolutePath,
+                                     "-S",
+                                     "Sample_102",
+                                     "--minGenomeQuality",
+                                     "2")
     main(args2)
 
     Source.fromFile(tmp2).getLines().size shouldBe 1
@@ -77,15 +98,15 @@ class GvcfToBedTest extends ToolTest[Args] {
     tmp.deleteOnExit()
     tmpInv.deleteOnExit()
     val args: Array[String] = Array("-I",
-      unvepped.getAbsolutePath,
-      "-O",
-      tmp.getAbsolutePath,
-      "-S",
-      "Sample_101",
-      "--minGenomeQuality",
-      "99",
-      "--invertedOutputBed",
-      tmpInv.getAbsolutePath)
+                                    unvepped.getAbsolutePath,
+                                    "-O",
+                                    tmp.getAbsolutePath,
+                                    "-S",
+                                    "Sample_101",
+                                    "--minGenomeQuality",
+                                    "99",
+                                    "--invertedOutputBed",
+                                    tmpInv.getAbsolutePath)
     main(args)
 
     Source.fromFile(tmpInv).getLines().size shouldBe 1
@@ -95,15 +116,15 @@ class GvcfToBedTest extends ToolTest[Args] {
     tmp2.deleteOnExit()
     tmp2Inv.deleteOnExit()
     val args2: Array[String] = Array("-I",
-      unvepped.getAbsolutePath,
-      "-O",
-      tmp.getAbsolutePath,
-      "-S",
-      "Sample_102",
-      "--minGenomeQuality",
-      "3",
-      "--invertedOutputBed",
-      tmp2Inv.getAbsolutePath)
+                                     unvepped.getAbsolutePath,
+                                     "-O",
+                                     tmp.getAbsolutePath,
+                                     "-S",
+                                     "Sample_102",
+                                     "--minGenomeQuality",
+                                     "3",
+                                     "--invertedOutputBed",
+                                     tmp2Inv.getAbsolutePath)
     main(args2)
 
     Source.fromFile(tmp2Inv).getLines().size shouldBe 0
